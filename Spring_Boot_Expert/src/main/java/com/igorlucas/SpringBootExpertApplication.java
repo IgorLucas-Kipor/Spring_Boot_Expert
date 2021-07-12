@@ -1,6 +1,7 @@
 package com.igorlucas;
 
-import java.util.List;
+import java.math.BigDecimal;
+import java.time.LocalDate;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
@@ -9,21 +10,35 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 
 import com.igorlucas.entity.Cliente;
+import com.igorlucas.entity.Pedido;
 import com.igorlucas.repository.Clientes;
+import com.igorlucas.repository.Pedidos;
 
 @SpringBootApplication
 public class SpringBootExpertApplication {
 	
 	@Bean
-	public CommandLineRunner init(@Autowired Clientes clientes) {
+	public CommandLineRunner init(@Autowired Clientes clientes, @Autowired Pedidos pedidos) {
 		return args -> {
+			
 			System.out.println("Salvando clientes.");
-			clientes.save(new Cliente(null, "Igor"));
-			clientes.save(new Cliente(null, "Lucas"));
+			Cliente igor = new Cliente(null, "Igor");
+			Cliente lucas = new Cliente(null, "Lucas");
+			clientes.save(igor);
+			clientes.save(lucas);
 			
-			List<Cliente> encontrado = clientes.encontrarPorNome("r");
-			encontrado.forEach(System.out::println);
+			Pedido p = new Pedido();
+			p.setCliente(igor);
+			p.setDataPedido(LocalDate.now());
+			p.setTotal(BigDecimal.valueOf(100));
 			
+			pedidos.save(p);
+			
+			pedidos.findByCliente(igor).forEach(System.out::println);
+			
+//			Cliente cliente = clientes.findClienteFetchPedidos(igor.getId());
+//			System.out.println(cliente);
+//			System.out.println(cliente.getPedidos());
 		};
 	}
 
