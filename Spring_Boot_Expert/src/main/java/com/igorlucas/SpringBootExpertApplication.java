@@ -18,26 +18,26 @@ public class SpringBootExpertApplication {
 	public CommandLineRunner init(@Autowired Clientes clientes) {
 		return args -> {
 			System.out.println("Salvando clientes.");
-			clientes.salvar(new Cliente(null, "Igor"));
-			clientes.salvar(new Cliente(null, "Lucas"));
+			clientes.save(new Cliente(null, "Igor"));
+			clientes.save(new Cliente(null, "Lucas"));
 			
-			List<Cliente> todosClientes = clientes.obterTodos();
+			List<Cliente> todosClientes = clientes.findAll();
 			todosClientes.forEach(System.out::println);
 			
 			System.out.println("Atualizando clientes.");
 			todosClientes.forEach(c -> {
 				c.setNome(c.getNome() + " atualizado.");
-				clientes.atualizar(c);
+				clientes.save(c);
 			});
 			
 			
-			clientes.buscarPorNome("ca").forEach(System.out::println);
+			clientes.findByNomeLike("ca").forEach(System.out::println);
 			
 			System.out.println("Deletando clientes.");
-			clientes.buscarPorNome("or").forEach(c -> clientes.deletar(c));
+			clientes.findAll().forEach(c -> clientes.delete(c));
 			
 			System.out.println("Buscando clientes.");
-			todosClientes = clientes.obterTodos();
+			todosClientes = clientes.findAll();
 			todosClientes.forEach(System.out::println);
 		};
 	}
