@@ -1,5 +1,7 @@
 package com.igorlucas;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
@@ -19,8 +21,8 @@ public class SpringBootExpertApplication {
 			clientes.save(new Cliente(null, "Igor"));
 			clientes.save(new Cliente(null, "Lucas"));
 			
-			boolean exists = clientes.existsByNome("Igor");
-			System.out.println("Existe um cliente com esse nome? " + exists);
+			List<Cliente> encontrado = clientes.encontrarPorNome("r");
+			encontrado.forEach(System.out::println);
 			
 		};
 	}
