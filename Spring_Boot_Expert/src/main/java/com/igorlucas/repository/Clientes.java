@@ -8,6 +8,16 @@ import com.igorlucas.entity.Cliente;
 
 public interface Clientes extends JpaRepository<Cliente, Integer> {
 
-	List<Cliente> findByNomeLike(String nome);	
+	List<Cliente> findByNomeLike(String nome);
+	
+	List<Cliente> findByNomeOrIdOrderById(String nome, Integer id);
+	
+	Cliente findOneByNome(String nome);
+	
+	boolean existsByNome(String nome);
+	
+	/*
+	 * Parâmetros devem ser inseridos na ordem definida nos query methods
+	 */
 
 }
