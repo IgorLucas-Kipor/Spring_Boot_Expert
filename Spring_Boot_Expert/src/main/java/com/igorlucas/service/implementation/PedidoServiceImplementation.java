@@ -2,7 +2,6 @@ package com.igorlucas.service.implementation;
 
 import java.time.LocalDate;
 import java.util.List;
-import java.util.Set;
 import java.util.stream.Collectors;
 
 import javax.transaction.Transactional;
@@ -50,7 +49,7 @@ public class PedidoServiceImplementation implements PedidoService {
 		pedido.setDataPedido(LocalDate.now());
 		pedido.setCliente(cliente);
 		
-		Set<ItemPedido> itemsConvertidos = converterItems(pedido, dto.getItems());
+		List<ItemPedido> itemsConvertidos = converterItems(pedido, dto.getItems());
 		pedidos.save(pedido);
 		itemsPedidos.saveAll(itemsConvertidos);
 		pedido.setItems(itemsConvertidos);
@@ -59,7 +58,7 @@ public class PedidoServiceImplementation implements PedidoService {
 
 	}
 
-	private Set<ItemPedido> converterItems(Pedido pedido, Set<ItemPedidoDTO> items) {
+	private List<ItemPedido> converterItems(Pedido pedido, List<ItemPedidoDTO> items) {
 		if (items.isEmpty()) {
 			throw new RegraNegocioException("Lista de items vazia.");
 		}
@@ -76,7 +75,7 @@ public class PedidoServiceImplementation implements PedidoService {
 			itemPedido.setPedido(pedido);
 			itemPedido.setProduto(produto);
 			return itemPedido;
-		}).collect(Collectors.toSet());
+		}).collect(Collectors.toList());
 	}
 
 }

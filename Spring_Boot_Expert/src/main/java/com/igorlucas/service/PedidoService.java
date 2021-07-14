@@ -5,6 +5,6 @@ import com.igorlucas.entity.Pedido;
 
 public interface PedidoService {
 	
-	public Pedido salvar(PedidoDTO dto);
+	Pedido salvar(PedidoDTO dto);
 
 }

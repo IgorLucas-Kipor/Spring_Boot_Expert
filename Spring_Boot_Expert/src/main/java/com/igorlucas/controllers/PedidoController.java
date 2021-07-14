@@ -1,5 +1,6 @@
 package com.igorlucas.controllers;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -15,6 +16,7 @@ import com.igorlucas.service.PedidoService;
 @RequestMapping("/api/pedidos")
 public class PedidoController {
 	
+	@Autowired
 	private PedidoService service;
 	
 	@PostMapping

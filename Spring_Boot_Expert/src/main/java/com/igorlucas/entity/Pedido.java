@@ -2,7 +2,7 @@ package com.igorlucas.entity;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
-import java.util.Set;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -40,6 +40,6 @@ public class Pedido {
 	private BigDecimal total;
 	
 	@OneToMany(mappedBy = "pedido")
-	private Set<ItemPedido> items;
+	private List<ItemPedido> items;
 
 }
