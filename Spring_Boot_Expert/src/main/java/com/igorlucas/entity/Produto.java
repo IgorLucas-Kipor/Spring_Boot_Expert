@@ -9,8 +9,15 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
 @Entity
 @Table(name = "produto")
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
 public class Produto {
 	
 	@Id
@@ -24,39 +31,4 @@ public class Produto {
 	@Column(name= "preco_unitario")
 	private BigDecimal preco;
 	
-	public Produto() {}
-	
-	public Produto(Integer id, String descricao, BigDecimal preco) {
-		super();
-		this.id = id;
-		this.descricao = descricao;
-		this.preco = preco;
-	}
-
-	public Integer getId() {
-		return id;
-	}
-	
-	public void setId(Integer id) {
-		this.id = id;
-	}
-	
-	public String getDescricao() {
-		return descricao;
-	}
-	
-	public void setDescricao(String descricao) {
-		this.descricao = descricao;
-	}
-	
-	public BigDecimal getPreco() {
-		return preco;
-	}
-	
-	public void setPreco(BigDecimal preco) {
-		this.preco = preco;
-	}
-	
-	
-
 }
