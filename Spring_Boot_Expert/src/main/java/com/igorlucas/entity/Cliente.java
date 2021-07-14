@@ -40,6 +40,13 @@ public class Cliente {
 		this.nome = nome;
 	}
 
+	public Cliente(Integer id, String nome, String cpf) {
+		super();
+		this.id = id;
+		this.nome = nome;
+		this.cpf = cpf;
+	}
+
 	public Integer getId() {
 		return id;
 	}
