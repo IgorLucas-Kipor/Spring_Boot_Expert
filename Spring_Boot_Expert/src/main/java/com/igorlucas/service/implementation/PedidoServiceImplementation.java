@@ -9,8 +9,6 @@ import javax.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.igorlucas.dto.ItemPedidoDTO;
-import com.igorlucas.dto.PedidoDTO;
 import com.igorlucas.entity.Cliente;
 import com.igorlucas.entity.ItemPedido;
 import com.igorlucas.entity.Pedido;
@@ -20,6 +18,8 @@ import com.igorlucas.repository.Clientes;
 import com.igorlucas.repository.ItemsPedidos;
 import com.igorlucas.repository.Pedidos;
 import com.igorlucas.repository.Produtos;
+import com.igorlucas.rest.dto.ItemPedidoDTO;
+import com.igorlucas.rest.dto.PedidoDTO;
 import com.igorlucas.service.PedidoService;
 
 @Service

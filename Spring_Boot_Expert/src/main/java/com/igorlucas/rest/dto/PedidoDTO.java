@@ -1,4 +1,4 @@
-package com.igorlucas.dto;
+package com.igorlucas.rest.dto;
 
 import java.math.BigDecimal;
 import java.util.List;

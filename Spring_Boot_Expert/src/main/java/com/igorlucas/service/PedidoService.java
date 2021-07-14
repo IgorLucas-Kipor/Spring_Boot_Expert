@@ -1,7 +1,7 @@
 package com.igorlucas.service;
 
-import com.igorlucas.dto.PedidoDTO;
 import com.igorlucas.entity.Pedido;
+import com.igorlucas.rest.dto.PedidoDTO;
 
 public interface PedidoService {
 	

@@ -1,4 +1,4 @@
-package com.igorlucas.dto;
+package com.igorlucas.rest.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
