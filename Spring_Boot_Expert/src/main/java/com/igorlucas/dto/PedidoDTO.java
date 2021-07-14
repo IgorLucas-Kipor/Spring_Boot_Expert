@@ -1,7 +1,7 @@
 package com.igorlucas.dto;
 
 import java.math.BigDecimal;
-import java.util.List;
+import java.util.Set;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -15,7 +15,7 @@ public class PedidoDTO {
 	
 	private Integer cliente;
 	private BigDecimal total;
-	private List<ItemPedidoDTO> items;
+	private Set<ItemPedidoDTO> items;
 	
 
 }
