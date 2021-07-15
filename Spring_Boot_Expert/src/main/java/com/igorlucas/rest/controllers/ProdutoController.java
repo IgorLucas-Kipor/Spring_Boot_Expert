@@ -2,6 +2,8 @@ package com.igorlucas.rest.controllers;
 
 import java.util.List;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Example;
 import org.springframework.data.domain.ExampleMatcher;
@@ -35,12 +37,12 @@ public class ProdutoController {
 	
 	@PostMapping
 	@ResponseStatus(HttpStatus.CREATED)
-	public Produto create(@RequestBody Produto produto) {
+	public Produto create(@RequestBody @Valid Produto produto) {
 		return produtos.save(produto);
 	}
 	
 	@PutMapping(value = "/{id}")
-	public Produto update(@RequestBody Produto produto, @PathVariable Integer id) {
+	public Produto update(@RequestBody @Valid Produto produto, @PathVariable Integer id) {
 		return produtos.findById(id)
 				.map(p -> {
 					produto.setId(p.getId());
