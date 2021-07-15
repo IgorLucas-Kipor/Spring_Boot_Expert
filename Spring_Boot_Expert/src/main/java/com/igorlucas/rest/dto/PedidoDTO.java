@@ -17,13 +17,13 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class PedidoDTO {
 	
-	@NotNull(message = "Código do cliente é obrigatório.")
+	@NotNull(message = "{campo.codigo-cliente.obrigatorio}")
 	private Integer cliente;
 	
-	@NotNull(message = "Informe o valor total do pedido.")
+	@NotNull(message = "{campo.total-pedido.obrigatorio}")
 	private BigDecimal total;
 	
-	@NotEmptyList(message = "A lista deve ser passada com items.")
+	@NotEmptyList(message = "{campo.items-pedido.obrigatorio}")
 	private List<ItemPedidoDTO> items;
 	
 
