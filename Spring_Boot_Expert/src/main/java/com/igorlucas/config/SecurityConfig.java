@@ -1,15 +1,22 @@
 package com.igorlucas.config;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
-import org.springframework.security.config.annotation.web.builders.WebSecurity;
+import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
+import com.igorlucas.service.implementation.UsuarioServiceImplementation;
+
 @EnableWebSecurity
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
+	
+	@Autowired
+	private UsuarioServiceImplementation usuarioService;
 	
 	@Bean
 	public PasswordEncoder passwordEncoder() {
@@ -18,17 +25,39 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	
 	@Override
 	protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-		auth.inMemoryAuthentication()
-		.passwordEncoder(passwordEncoder())
-		.withUser("Igor")
-		.password(passwordEncoder().encode("584"))
-		.roles("USER");
+		auth
+			.userDetailsService(usuarioService)
+			.passwordEncoder(passwordEncoder());
 	}
 	
 	@Override
-	public void configure(WebSecurity web) throws Exception {
-		// TODO Auto-generated method stub
-		super.configure(web);
+	protected void configure(HttpSecurity http) throws Exception {
+		http
+			.csrf().disable()
+			.authorizeRequests()
+				.antMatchers("/api/clientes/**")
+					.hasAnyRole("USER", "ADMIN")
+				.antMatchers("/api/produtos/**")
+					.hasRole("ADMIN")
+				.antMatchers("/api/pedidos/**")
+					.hasAnyRole("USER", "ADMIN")
+				.antMatchers(HttpMethod.POST, "/api/usuarios/**")
+					.permitAll()
+					.anyRequest().authenticated()
+			.and()
+				.httpBasic();
+			
 	}
+	
+	
+	/**
+	 * Podemos criar um formulário de autenticação de usuário customizado seguindo aproximadamente esse padrão:
+	 * 
+	 * <form method="post">
+	 * 		<input type="text" name="username">
+	 * 		<input type="secret" name"password">
+	 * 		<button type="submit">
+	 * </form>
+	 */
 
 }
