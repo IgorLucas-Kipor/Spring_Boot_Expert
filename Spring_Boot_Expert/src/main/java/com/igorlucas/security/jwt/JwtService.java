@@ -1,4 +1,4 @@
-package com.igorlucas;
+package com.igorlucas.security.jwt;
 
 import java.time.LocalDateTime;
 import java.time.ZoneId;
@@ -9,6 +9,7 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.stereotype.Service;
 
+import com.igorlucas.SpringBootExpertApplication;
 import com.igorlucas.entity.Usuario;
 
 import io.jsonwebtoken.Claims;
@@ -62,19 +63,6 @@ public class JwtService {
 	
 	public String obterLoginUsuario(String token) throws ExpiredJwtException {
 		return (String) obterClaims(token).getSubject();
-	}
-	
-	public static void main(String[] args) {
-		ConfigurableApplicationContext contexto	= SpringApplication.run(SpringBootExpertApplication.class);
-		JwtService service = contexto.getBean(JwtService.class);
-		Usuario usuario = Usuario.builder().login("Igor").build();
-		String token = service.gerarToken(usuario);
-		System.out.println(token);
-		
-		boolean isTokenValido = service.tokenValido(token);
-		System.out.println(isTokenValido);
-		
-		System.out.println(service.obterLoginUsuario(token));
 	}
 
 }

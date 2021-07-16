@@ -11,6 +11,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.igorlucas.entity.Usuario;
+import com.igorlucas.exceptions.SenhaInvalidaException;
 import com.igorlucas.repository.UsuarioRepository;
 
 @Service
@@ -25,6 +26,15 @@ public class UsuarioServiceImplementation implements UserDetailsService{
 	@Transactional
 	public Usuario salvar(Usuario usuario) {
 		return usuarioRepository.save(usuario);
+	}
+	
+	public UserDetails autenticar(Usuario usuario) {
+		UserDetails user = loadUserByUsername(usuario.getLogin());
+		boolean senhasIguais = encoder.matches(usuario.getSenha(), user.getPassword());
+		if (senhasIguais) {
+			return user;
+		}
+		throw new SenhaInvalidaException();
 	}
 
 	@Override
