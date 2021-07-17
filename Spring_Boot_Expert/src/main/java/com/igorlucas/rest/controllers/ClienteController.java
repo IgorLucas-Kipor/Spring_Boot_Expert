@@ -22,23 +22,39 @@ import org.springframework.web.server.ResponseStatusException;
 import com.igorlucas.entity.Cliente;
 import com.igorlucas.repository.Clientes;
 
+import io.swagger.annotations.Api;
+
 @RestController
 @RequestMapping("/api/clientes")
+@Api("Api Clientes")
 public class ClienteController {
 
 	@Autowired
 	private Clientes clientes;
 
 	@GetMapping(value = "/{id}")
+//	@ApiOperation("Obter detalhes de um cliente")
+//	@ApiResponses({
+//		@ApiResponse(code = 200, message = "Cliente encontrado!"),
+//		@ApiResponse(code = 404, message = "Cliente não encontrado para o id passado.")
+//	})
 	public Cliente getClienteById(@PathVariable Integer id) {
 
 		return clientes.findById(id)
 				.orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Cliente não encontrado"));
 
 	}
+	
+	//usar o @ApiParam ("texto a mostrar") customiza a descrição de um parâmetro passado ao método
 
 	@PostMapping
 	@ResponseStatus(HttpStatus.CREATED)
+	@GetMapping(value = "/{id}")
+//	@ApiOperation("Salva um novo cliente")
+//	@ApiResponses({
+//		@ApiResponse(code = 201, message = "Cliente salvo com sucesso!"),
+//		@ApiResponse(code = 404, message = "Falha no salvamento.")
+//	})
 	public Cliente save(@RequestBody @Valid Cliente cliente) {
 		return clientes.save(cliente);
 	}
